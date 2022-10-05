@@ -15,6 +15,7 @@ public class PersonMap: IEntityTypeConfiguration<Person>
 
         builder.HasMany<Contact>(p => p.Contacts)
             .WithOne(c => c.Person)
-            .HasForeignKey(c => c.PersonUUID);
+            .HasForeignKey(c => c.PersonUUID)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

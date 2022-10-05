@@ -38,20 +38,32 @@ public class BaseManager<T>:IBaseService<T> where T : BaseEntity
         return new SuccessDataResult<List<T>>(result);
     }
 
-    public async Task<IResult> Delete(T entity)
+    public async Task<IResult> DeleteAsync(T entity)
     {
         var result= await _writeRepository.RemoveAsync(entity.UUID);
-        if (result|| await _writeRepository.SaveAsync()<1)
+        if (result&& await _writeRepository.SaveAsync()>0)
         {
-            return new ErrorResult(false);
+            return new SuccessResult();
         }
-        return new SuccessResult();
+        return new ErrorResult(false);
+    }
+
+    public async Task<IResult> DeleteAsync(Guid id)
+    {
+        var result= await _writeRepository.RemoveAsync(id);
+        
+        if (result&& await _writeRepository.SaveAsync()>0)
+        {
+            return new SuccessResult();
+        }
+        return new ErrorResult(false);
+       
     }
 
     public async Task<IResult> UpdateAsync(T entity)
     {
         var result=  _writeRepository.Update(entity);
-        if (result || await _writeRepository.SaveAsync()<1)
+        if (!result || await _writeRepository.SaveAsync()<1)
         {
             return new ErrorResult(false);
         }

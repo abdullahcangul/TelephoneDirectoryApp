@@ -38,6 +38,7 @@ public class WriteRepository<T> : IWriteRepository<T> where T : BaseEntity
     public async Task<bool> RemoveAsync(Guid id)
     {
         T model = await Table.FirstOrDefaultAsync(data => data.UUID == id);
+        if (model == null) return false;
         return Remove(model);
     }
     public bool Update(T model)

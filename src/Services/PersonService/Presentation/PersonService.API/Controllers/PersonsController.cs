@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PersonService.Application.DTOs.PersonDto;
 using PersonService.Application.Features.Commands.CreatePerson;
+using PersonService.Application.Features.Commands.DeletePerson;
 
 namespace PersonService.API.Controllers;
 
@@ -26,5 +27,14 @@ public class PersonsController : ControllerBase
   {
     var result=await _mediator.Send(commandRequest);
     return result.Succes ? Ok(_mapper.Map<PersonDto>(result.Data)) : BadRequest(result.Message??String.Empty);
+  }
+  
+  [HttpDelete("DeletePerson")]
+  [ProducesResponseType(StatusCodes.Status200OK)]
+  [ProducesResponseType(StatusCodes.Status400BadRequest)]
+  public async Task<IActionResult> DeletePerson([FromBody]DeletePersonCommandRequest commandRequest)
+  {
+    var result=await _mediator.Send(commandRequest);
+    return result.Succes ? Ok() : BadRequest(result.Message??String.Empty);
   }
 }
