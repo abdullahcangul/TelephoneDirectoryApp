@@ -4,9 +4,9 @@ using PersonService.Persistence.Contexts.Mapping;
 
 namespace PersonService.Persistence.Contexts;
 
-public class TDPersonServiceDB:DbContext
+public class TDPersonServiceContextDB:DbContext
 {
-    public TDPersonServiceDB(DbContextOptions options):base(options)
+    public TDPersonServiceContextDB(DbContextOptions options):base(options)
     {
      
     }
