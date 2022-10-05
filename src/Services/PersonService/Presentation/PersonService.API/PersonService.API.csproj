@@ -15,10 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <ProjectReference Include="..\..\Infrastructure\PersonService.Infrastructure\PersonService.Infrastructure.csproj" />
       <ProjectReference Include="..\..\Infrastructure\PersonService.Persistence\PersonService.Persistence.csproj" />
     </ItemGroup>
 
