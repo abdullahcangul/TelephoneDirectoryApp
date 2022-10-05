@@ -19,8 +19,8 @@ public class BaseManager<T>:IBaseService<T> where T : BaseEntity
 
     public async Task<IDataResult<T>> AddAsync(T entity)
     {
-        var result= await _writeRepository.AddAsync(entity);
-        if (result == null)
+        var result= await _writeRepository.AddAsync(entity); 
+        if (result == null || await _writeRepository.SaveAsync()<1)
         {
             return new ErrorDataResult<T>();
         }
@@ -31,7 +31,7 @@ public class BaseManager<T>:IBaseService<T> where T : BaseEntity
     public async Task<IDataResult<List<T>>> AddRangeAsync(List<T> entity)
     {
         var result= await _writeRepository.AddRangeAsync(entity);
-        if (result == null)
+        if (result == null || await _writeRepository.SaveAsync()<1)
         {
             return new ErrorDataResult<List<T>>();
         }
@@ -41,17 +41,17 @@ public class BaseManager<T>:IBaseService<T> where T : BaseEntity
     public async Task<IResult> Delete(T entity)
     {
         var result= await _writeRepository.RemoveAsync(entity.UUID);
-        if (result)
+        if (result|| await _writeRepository.SaveAsync()<1)
         {
             return new ErrorResult(false);
         }
         return new SuccessResult();
     }
 
-    public IResult UpdateAsync(T entity)
+    public async Task<IResult> UpdateAsync(T entity)
     {
         var result=  _writeRepository.Update(entity);
-        if (result)
+        if (result || await _writeRepository.SaveAsync()<1)
         {
             return new ErrorResult(false);
         }
