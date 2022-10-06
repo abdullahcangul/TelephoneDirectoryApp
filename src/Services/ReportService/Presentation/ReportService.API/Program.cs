@@ -1,3 +1,4 @@
+using BasketService.Api.Extensions;
 using EventBus.Base.Abstraction;
 using FluentValidation.AspNetCore;
 using PersonService.Application;
@@ -19,6 +20,7 @@ builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.ConfigureConsul(builder.Configuration);
 
 var app = builder.Build();
 
@@ -34,6 +36,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.RegisterWithConsul(app.Lifetime);
 
 var eventBus = app.Services.GetRequiredService<IEventBus>();
 
