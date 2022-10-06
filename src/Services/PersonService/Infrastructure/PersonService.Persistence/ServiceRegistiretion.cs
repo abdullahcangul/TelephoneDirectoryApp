@@ -2,9 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using PersonService.Application.Abstractions.Services;
 using PersonService.Application.Repositories;
+using PersonService.Application.Repositories.ContactRepository;
 using PersonService.Application.Repositories.PersonRepository;
 using PersonService.Persistence.Contexts;
 using PersonService.Persistence.Repositories;
+using PersonService.Persistence.Repositories.ContactRepository;
 using PersonService.Persistence.Repositories.PersonRepository;
 using PersonService.Persistence.Services;
 
@@ -22,8 +24,12 @@ public static class ServiceRegistiretion
 
         services.AddScoped<IPersonReadRepository, PersonReadRepository>();
         services.AddScoped<IPersonWriteRepository,PersonWriteRepository>();
+        
+        services.AddScoped<IContactReadRepository, ContactReadRepository>();
+        services.AddScoped<IContactWriteRepository,ContactWriteRepository>();
 
         services.AddScoped<IPersonService, PersonManager>();
+        services.AddScoped<IContactService, ContactManager>();
 
 
     }
