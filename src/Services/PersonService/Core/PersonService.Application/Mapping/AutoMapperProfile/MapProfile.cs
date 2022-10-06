@@ -16,5 +16,10 @@ public class MapProfile:Profile
         
         CreateMap<CreateContactCommandRequest, Contact>().ReverseMap();
         CreateMap<ContactDto, Contact>().ReverseMap();
+
+        CreateMap<ContactForListDto, Contact>().ReverseMap();
+        CreateMap<PersonWithContactDto, Person>().ReverseMap();
+
+        
     }
 }

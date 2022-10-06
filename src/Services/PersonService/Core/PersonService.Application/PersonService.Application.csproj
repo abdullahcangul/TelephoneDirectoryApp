@@ -24,7 +24,6 @@
 
     <ItemGroup>
       <Folder Include="Features\Commands\PersonCommands" />
-      <Folder Include="Features\Queries" />
     </ItemGroup>
 
 </Project>
