@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PersonService.Application.DTOs.ReportDtos;
 using PersonService.Application.Features.Queries.ReportQueries.GetReports;
+using PersonService.Application.Features.Queries.ReportQueries.GetReportsWithDetails;
 
 namespace ReportService.API.Controllers;
 
@@ -25,5 +26,14 @@ public class ReportsController:ControllerBase
     {
         var result=await _mediator.Send(new GetReportQueryRequest());
         return result.Succes ? Ok(_mapper.Map<List<ReportDto>>(result.Data)) : BadRequest(result.Message??String.Empty);
+    }
+    
+    [HttpGet("GetReportsWithReportDetail")]
+    [ProducesResponseType(typeof(List<ReportsWithDetailsDto>),StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetReportsWithDetails()
+    {
+        var result=await _mediator.Send(new GetReportsWithDetailQueryRequest());
+        return result.Succes ? Ok(_mapper.Map<List<ReportsWithDetailsDto>>(result.Data)) : BadRequest(result.Message??String.Empty);
     }
 }
