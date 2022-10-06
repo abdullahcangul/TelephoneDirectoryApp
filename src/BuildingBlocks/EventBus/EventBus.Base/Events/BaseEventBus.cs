@@ -60,7 +60,7 @@ namespace EventBus.Base.Events
                 {
                     foreach (var subscription in subscriptions)
                     {
-                        var handler = ServiceProvider.GetService(subscription.HandlerType);
+                        var handler = scope.ServiceProvider.GetService(subscription.HandlerType);
 
                         if (handler == null) continue;
 
