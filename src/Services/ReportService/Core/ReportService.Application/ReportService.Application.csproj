@@ -22,4 +22,8 @@
       <ProjectReference Include="..\ReportService.Domain\ReportService.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Features\Commands" />
+    </ItemGroup>
+
 </Project>
