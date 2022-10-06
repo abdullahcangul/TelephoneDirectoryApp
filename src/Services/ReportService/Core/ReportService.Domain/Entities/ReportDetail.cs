@@ -7,5 +7,6 @@ public class ReportDetail:BaseEntity
     public string Address { get; set; }
 
     public int ReportUUID { get; set; }
+    
     public Report Report { get; set; }
 }
