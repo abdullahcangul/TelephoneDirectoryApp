@@ -6,7 +6,7 @@ public class ReportDetail:BaseEntity
     public int TelNoCount { get; set; }
     public string Address { get; set; }
 
-    public int ReportUUID { get; set; }
+    public Guid ReportUUID { get; set; }
     
     public Report Report { get; set; }
 }
