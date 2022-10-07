@@ -63,7 +63,7 @@ Report servis : Kullanıcının rapor oluşturma işteği bıraktığı ve rapor
 ```
 
 
-#### Kişiyi ilişkili kayıtlarla sil
+#### Kişiyi ve ilişkili kayıtlarla sil
 
 ```http
   Delete /api/Persons/DeletePerson
@@ -88,6 +88,6 @@ Report servis : Kullanıcının rapor oluşturma işteği bıraktığı ve rapor
 
 Projenin kullanılabilmesi için
 
-#### postgresql,RabbitMq yüklenmelidir.
+#### postgresql, RabbitMq yüklenmelidir.
 
-    postrasql default şifre 1234 yada appsetting den güncellenmelidir.
+    postrasql default şifre 1234 yada appsetting güncellenmelidir.
