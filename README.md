@@ -46,7 +46,7 @@ Report servis : Kullanıcının rapor oluşturma işteği bıraktığı ve rapor
 #### Rapor oluşturma isteğinde bulunur
 
 ```http
-  GET /api/reports/CreateReport
+  POST /api/reports/CreateReport
 ```
 
 
@@ -59,28 +59,28 @@ Report servis : Kullanıcının rapor oluşturma işteği bıraktığı ve rapor
 #### Kişi Ekler
 
 ```http
-  GET /api/Persons/CreatePerson
+  Post /api/Persons/CreatePerson
 ```
 
 
 #### Kişiyi ilişkili kayıtlarla sil
 
 ```http
-  GET /api/Persons/DeletePerson
+  Delete /api/Persons/DeletePerson
 ```
 
 
 #### Kişi detay Ekle
 
 ```http
-  GET /api/Contacts/CreateContact
+  Post /api/Contacts/CreateContact
 ```
 
 
 #### Kişiyi detayı sil
 
 ```http
-  GET /api/Contacts/DeleteContact
+  Delete /api/Contacts/DeleteContact
 ```
 
   
