@@ -1,10 +1,12 @@
 using EventBus.Base.Abstraction;
 using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 using PersonService.Application;
 using PersonService.Application.IntegrationEvents.EventHandlers;
 using PersonService.Application.IntegrationEvents.Events;
 using ReportService.Infrastructure.Filters;
 using ReportService.Persistence;
+using ReportService.Persistence.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<TDReportServiceContextDB>();
+    db.Database.Migrate();
 }
 
 app.UseHttpsRedirection();
