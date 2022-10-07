@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PersonService.Application.Abstractions.Services;
+using PersonService.Application.DTOs.ReportDto;
 using PersonService.Application.Repositories;
 using PersonService.Application.Repositories.PersonRepository;
 using PersonService.Application.Utility.Results;
@@ -24,4 +25,6 @@ public class PersonManager:BaseManager<Person>,IPersonService
                   .ToListAsync()
           );
     }
+
+    
 }

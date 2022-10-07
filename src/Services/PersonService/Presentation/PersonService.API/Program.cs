@@ -1,6 +1,9 @@
+using EventBus.Base.Abstraction;
 using FluentValidation.AspNetCore;
 using PersonService.Application;
 using PersonService.Application.Features.Commands.CreatePerson;
+using PersonService.Application.IntegrationEvents.EventHandlers;
+using PersonService.Application.IntegrationEvents.Events;
 using PersonService.Infrastructure.Filters;
 using PersonService.Persistence;
 
@@ -34,5 +37,9 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+var eventBus = app.Services.GetRequiredService<IEventBus>();
+
+eventBus.Subscribe<ReportCreateIntegrationEvent, ReportCreateIntegrationEventHandler>(); 
 
 app.Run();
