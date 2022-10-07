@@ -1,5 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{815889DF-A772-4384-955C-D2638F9E548A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{783A6198-EFA1-4E13-AB4C-0CD8061B586B}"
@@ -55,6 +56,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApiGateway", "WebApiGateway", "{AC483026-9EEE-4AC4-9CA6-04718DDF5015}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.ApiGateway", "src\ApiGateways\WebApiGateway\Web.ApiGateway\Web.ApiGateway.csproj", "{9B3842FC-6896-435C-946A-5F77721F014D}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{502C5B6F-83A9-4724-AABA-2FD3B8444EF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,5 +150,9 @@ Global
 		{9B3842FC-6896-435C-946A-5F77721F014D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B3842FC-6896-435C-946A-5F77721F014D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B3842FC-6896-435C-946A-5F77721F014D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{502C5B6F-83A9-4724-AABA-2FD3B8444EF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{502C5B6F-83A9-4724-AABA-2FD3B8444EF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{502C5B6F-83A9-4724-AABA-2FD3B8444EF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{502C5B6F-83A9-4724-AABA-2FD3B8444EF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

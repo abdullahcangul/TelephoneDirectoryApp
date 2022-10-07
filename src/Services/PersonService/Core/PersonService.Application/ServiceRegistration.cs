@@ -23,7 +23,11 @@ public static class ServiceRegistration
                 ConnectionRetryCount = 5,
                 EventNameSuffix = "IntegrationEvent",
                 SubscriberClientAppName = "PersonService",
-                EventBusType = EventBusType.RabbitMQ
+                EventBusType = EventBusType.RabbitMQ,
+                Connection = new ConnectionFactory()
+                {
+                    HostName = "s_rabbitmq"
+                }
             };
 
             return EventBusFactory.Create(config, p);

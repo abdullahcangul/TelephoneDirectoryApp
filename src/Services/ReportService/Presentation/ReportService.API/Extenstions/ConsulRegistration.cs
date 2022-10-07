@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 
-namespace BasketService.Api.Extensions
+namespace PersonService.Api.Extensions
 {
     public static class ConsulRegistration
     {
@@ -24,7 +24,7 @@ namespace BasketService.Api.Extensions
             return services;
         }
 
-        public static IApplicationBuilder RegisterWithConsul(this IApplicationBuilder app, IHostApplicationLifetime lifetime)
+        public static IApplicationBuilder RegisterWithConsul(this IApplicationBuilder app, IHostApplicationLifetime lifetime,IConfiguration configuration)
         {
             var consulClient = app.ApplicationServices.GetRequiredService<IConsulClient>();
 
@@ -32,23 +32,21 @@ namespace BasketService.Api.Extensions
 
             var logger = loggingFactory.CreateLogger<IApplicationBuilder>();
 
-            //Get server IP address
-            var features = app.Properties["server.Features"] as FeatureCollection;
-            var addresses = features.Get<IServerAddressesFeature>();
-            var address = addresses.Addresses.First();
+            var uri = configuration.GetValue<Uri>("ConsulConfig:ServiceAddress");
+            var serviceName = configuration.GetValue<string>("ConsulConfig:ServiceName");
+            var serviceId = configuration.GetValue<string>("ConsulConfig:ServiceId");
 
-            //Register service with consul
-            var uri = new Uri(address);
-            var registration = new AgentServiceRegistration
+            var registration = new AgentServiceRegistration()
             {
-                ID = $"ReportService",
-                Name = "ReportService",
+                ID = serviceId ?? $"ReportService",
+                Name = serviceName ?? "ReportService",
                 Address = $"{uri.Host}",
                 Port = uri.Port,
-                Tags = new[] { "Report Service", "report" }
+                Tags = new[] { serviceName, serviceId }
             };
 
-            logger.LogInformation("Registering with consul");
+            logger.LogInformation("Registering with Consul");
+
             consulClient.Agent.ServiceDeregister(registration.ID).Wait();
             consulClient.Agent.ServiceRegister(registration).Wait();
 

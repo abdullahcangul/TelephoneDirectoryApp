@@ -1,6 +1,7 @@
-using BasketService.Api.Extensions;
+using PersonService.Api.Extensions;
 using EventBus.Base.Abstraction;
 using FluentValidation.AspNetCore;
+using PersonService.Api.Extensions;
 using PersonService.Application;
 using PersonService.Application.Features.Commands.CreatePerson;
 using PersonService.Application.IntegrationEvents.EventHandlers;
@@ -20,12 +21,18 @@ builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>
     .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<CreatePersonValidators>())
     .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
 
-builder.Services.ConfigureConsul(builder.Configuration);
+//builder.Services.ConfigureConsul(builder.Configuration.AddEnvironmentVariables().Build());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.WebHost.UseDefaultServiceProvider((context, options) =>
+{
+    options.ValidateOnBuild = false;
+    options.ValidateScopes = false;
+});
+//builder.Configuration.AddEnvironmentVariables();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,7 +48,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.RegisterWithConsul(app.Lifetime);
+//app.RegisterWithConsul(app.Lifetime,app.Configuration);
 
 var eventBus = app.Services.GetRequiredService<IEventBus>();
 

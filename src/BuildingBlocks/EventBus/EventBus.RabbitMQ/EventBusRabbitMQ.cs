@@ -22,7 +22,7 @@ namespace EventBus.RabbitMQ
 
         public EventBusRabbitMQ(EventBusConfig config, IServiceProvider serviceProvider) : base(config, serviceProvider)
         {
-            if (config.Connection != null)
+            /*if (config.Connection != null)
             {
                 var connJson = JsonConvert.SerializeObject(EventBusConfig.Connection, new JsonSerializerSettings()
                 {
@@ -31,7 +31,7 @@ namespace EventBus.RabbitMQ
 
                 connectionFactory = JsonConvert.DeserializeObject<ConnectionFactory>(connJson);
             }
-            else
+            else*/
                 connectionFactory = new ConnectionFactory();
 
 
