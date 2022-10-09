@@ -1,6 +1,7 @@
 using PersonService.Api.Extensions;
 using EventBus.Base.Abstraction;
 using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 using PersonService.Api.Extensions;
 using PersonService.Application;
 using PersonService.Application.Features.Commands.CreatePerson;
@@ -8,11 +9,13 @@ using PersonService.Application.IntegrationEvents.EventHandlers;
 using PersonService.Application.IntegrationEvents.Events;
 using PersonService.Infrastructure.Filters;
 using PersonService.Persistence;
+using PersonService.Persistence.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices();
 
@@ -32,6 +35,7 @@ builder.WebHost.UseDefaultServiceProvider((context, options) =>
     options.ValidateOnBuild = false;
     options.ValidateScopes = false;
 });
+builder.WebHost.UseDefaultServiceProvider(options => options.ValidateScopes = false);
 //builder.Configuration.AddEnvironmentVariables();
 var app = builder.Build();
 
@@ -42,9 +46,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
-app.UseAuthorization();
+
 
 app.MapControllers();
 
@@ -53,5 +57,10 @@ app.MapControllers();
 var eventBus = app.Services.GetRequiredService<IEventBus>();
 
 eventBus.Subscribe<ReportCreateIntegrationEvent, ReportCreateIntegrationEventHandler>(); 
-
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<TDPersonServiceContextDB>();
+    db.Database.Migrate();
+}
 app.Run();
+

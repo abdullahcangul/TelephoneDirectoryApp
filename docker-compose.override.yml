@@ -1,75 +1,81 @@
 version: '3.4'
+
 services:
-  web.apigateway:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:5000
-    ports:
-      - "5000:5000"
-
-    volumes:
-      - ~/.aspnet/https:/root/.aspnet/https:ro
-      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
-  
   personservice.api:
+    container_name: person_service
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:5006;
-      - ConsulConfig__Address=http://s_consul:8500
-      - ConsulConfig__ServiceAddress=http://c_personservice:5006
-      - ConsulConfig__ServiceName=PersonServie
-      - ConsulConfig__ServiceId=person
+      - ASPNETCORE_URLS=http://+:80
     ports:
-      - "5006:5006"
- 
-    depends_on:
-      - web.apigateway
-      - s_postgresql
-      - s_consul
+      - "5006:80"
     volumes:
       - ~/.aspnet/https:/root/.aspnet/https:ro
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
-
+    networks:
+      - backend_service
+    depends_on:
+      - s_rabbitmq
+      - s_postgresql
+      - web.apigateway
   reportservice.api:
+    container_name: report_service
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:5005
-      - ConsulConfig__Address=http://s_consul:8500
-      - ConsulConfig__ServiceAddress=http://c_personservice:5005
-      - ConsulConfig__ServiceName=ReportServie
-      - ConsulConfig__ServiceId=report
+      - ASPNETCORE_URLS=http://+:80
     ports:
-      - "5005:5005"
- 
-    depends_on:
-      - web.apigateway
-      - s_postgresql
-      - s_consul
+      - "5005:80"
     volumes:
       - ~/.aspnet/https:/root/.aspnet/https:ro
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
-
-  s_consul:
+    networks:
+      - backend_service
+    depends_on:
+      - s_rabbitmq
+      - s_postgresql
+      - web.apigateway
+    
+  web.apigateway:
+    container_name: api_gateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
     ports:
-      - 8500:8500
-      - 8600:8600/tcp
-      - 8600:8600/udp 
-
-  
+      - "5001:80"
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+    networks:
+      - backend_service
+      - api_gateway_service
+    depends_on:
+      - s_rabbitmq
+      - s_postgresql
+      
   s_rabbitmq:
+    container_name: c_rabbitmq
     ports:
       - 5672:5672
       - 15672:15672
-    volumes:
-      - rabbitmq:/var/lib/rabbitmq
+    networks:
+      - backend_service
+      - api_gateway_service
 
   s_postgresql:
+    container_name: c_postgresql
     ports:
       - 5433:5433
+    networks:
+      - backend_service
+      - api_gateway_service
     environment:
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
-    
-
-    
+      POSTGRES_USER: postgres 
+  
+networks:
+  backend_service:
+    driver: bridge,
+    external: true
+  api_gateway_service:
+    driver: bridge,
+    external: true

@@ -1,44 +1,30 @@
 version: '3.4'
 
 services:
-  web.apigateway:
-    container_name: web.apigateway
-    image: ${DOCKER_REGISTRY-}web
-    build:
-      context: .
-      dockerfile: src/ApiGateways/WebApiGateway/Web.ApiGateway/Dockerfile
-
   personservice.api:
-    container_name: c_personservice
     image: ${DOCKER_REGISTRY-}personservice
     build:
       context: .
       dockerfile: src/Services/PersonService/Presentation/PersonService.API/Dockerfile
+
   reportservice.api:
-    container_name: c_reportservice
     image: ${DOCKER_REGISTRY-}reportservice
     build:
       context: .
       dockerfile: src/Services/ReportService/Presentation/ReportService.API/Dockerfile
 
 
+  web.apigateway:
+    image: ${DOCKER_REGISTRY-}web
+    build:
+      context: .
+      dockerfile: src/ApiGateways/WebApiGateway/Web.ApiGateway/Dockerfile
+  
+  
   s_rabbitmq:
-    container_name: c_rabbitmq
     image: rabbitmq:3-management
     
-  s_consul:
-    container_name: c_consul
-    image: consul
-    
   s_postgresql:
-    container_name: c_postgresql
     image: postgres
-    environment:
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
-  
-  
-    
-  
-
+      
+ 

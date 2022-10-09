@@ -3,10 +3,10 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>{502C5B6F-83A9-4724-AABA-2FD3B8444EF3}</ProjectGuid>
+    <ProjectGuid>{3B06884F-0D4B-4DC6-817A-C2FFF6BD7A96}</ProjectGuid>
     <DockerLaunchBrowser>True</DockerLaunchBrowser>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>web.apigateway</DockerServiceName>
+    <DockerServiceName>personservice.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
