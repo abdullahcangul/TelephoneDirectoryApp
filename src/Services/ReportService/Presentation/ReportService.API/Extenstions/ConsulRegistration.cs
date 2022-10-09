@@ -17,6 +17,7 @@ namespace PersonService.Api.Extensions
         {
             services.AddSingleton<IConsulClient, ConsulClient>(p => new ConsulClient(consulConfig =>
             {
+                
                 var address = configuration["ConsulConfig:Address"];
                 consulConfig.Address = new Uri(address);
             }));
@@ -26,37 +27,41 @@ namespace PersonService.Api.Extensions
 
         public static IApplicationBuilder RegisterWithConsul(this IApplicationBuilder app, IHostApplicationLifetime lifetime,IConfiguration configuration)
         {
-            var consulClient = app.ApplicationServices.GetRequiredService<IConsulClient>();
-
-            var loggingFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
-
-            var logger = loggingFactory.CreateLogger<IApplicationBuilder>();
-
-            var uri = configuration.GetValue<Uri>("ConsulConfig:ServiceAddress");
-            var serviceName = configuration.GetValue<string>("ConsulConfig:ServiceName");
-            var serviceId = configuration.GetValue<string>("ConsulConfig:ServiceId");
-
-            var registration = new AgentServiceRegistration()
+            using (var scope = app.ApplicationServices.CreateScope())
             {
-                ID = serviceId ?? $"ReportService",
-                Name = serviceName ?? "ReportService",
-                Address = $"{uri.Host}",
-                Port = uri.Port,
-                Tags = new[] { serviceName, serviceId }
-            };
+                var consulClient = scope.ServiceProvider.GetRequiredService<IConsulClient>();
 
-            logger.LogInformation("Registering with Consul");
+                var loggingFactory = scope.ServiceProvider.GetRequiredService<ILoggerFactory>();
 
-            consulClient.Agent.ServiceDeregister(registration.ID).Wait();
-            consulClient.Agent.ServiceRegister(registration).Wait();
+                var logger = loggingFactory.CreateLogger<IApplicationBuilder>();
 
-            lifetime.ApplicationStopping.Register(() =>
-            {
-                logger.LogInformation("Deregistering from Consul");
+                var uri = configuration.GetValue<Uri>("ConsulConfig:ServiceAddress");
+                var serviceName = configuration.GetValue<string>("ConsulConfig:ServiceName");
+                var serviceId = configuration.GetValue<string>("ConsulConfig:ServiceId");
+
+                var registration = new AgentServiceRegistration()
+                {
+                    ID = serviceId ?? $"ReportService",
+                    Name = serviceName ?? "ReportService",
+                    Address = $"{uri.Host}",
+                    Port = uri.Port,
+                    Tags = new[] { serviceName, serviceId }
+                };
+
+                logger.LogInformation("Registering with Consul");
+
                 consulClient.Agent.ServiceDeregister(registration.ID).Wait();
-            });
+                consulClient.Agent.ServiceRegister(registration).Wait();
 
-            return app;
+                lifetime.ApplicationStopping.Register(() =>
+                {
+                    logger.LogInformation("Deregistering from Consul");
+                    consulClient.Agent.ServiceDeregister(registration.ID).Wait();
+                });
+
+                return app;
+            }
+     
         }
     }
 }

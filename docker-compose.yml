@@ -20,11 +20,12 @@ services:
       context: .
       dockerfile: src/ApiGateways/WebApiGateway/Web.ApiGateway/Dockerfile
   
-  
+
   s_rabbitmq:
     image: rabbitmq:3-management
     
   s_postgresql:
     image: postgres
       
- 
+  s_consul:
+    image: consul

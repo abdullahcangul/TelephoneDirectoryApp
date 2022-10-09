@@ -19,6 +19,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices();
 
+builder.Configuration.AddEnvironmentVariables();
+builder.Services.ConfigureConsul(builder.Configuration);
 
 builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>())
     .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<CreatePersonValidators>())
@@ -52,7 +54,7 @@ if (app.Environment.IsDevelopment())
 
 app.MapControllers();
 
-//app.RegisterWithConsul(app.Lifetime,app.Configuration);
+app.RegisterWithConsul(app.Lifetime,app.Configuration);
 
 var eventBus = app.Services.GetRequiredService<IEventBus>();
 

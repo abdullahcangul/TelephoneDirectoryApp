@@ -6,6 +6,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
+      - ConsulConfig__Address=http://s_consul:8500
+      - ConsulConfig__ServiceAddress=http://person_service:5006
+      - ConsulConfig__ServiceName=PersonService
+      - ConsulConfig__ServiceId=Person
     ports:
       - "5006:80"
     volumes:
@@ -22,6 +26,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
+      - ConsulConfig__Address=http://s_consul:8500
+      - ConsulConfig__ServiceAddress=http://report_service:5005
+      - ConsulConfig__ServiceName=ReportService
+      - ConsulConfig__ServiceId=Report
     ports:
       - "5005:80"
     volumes:
@@ -71,6 +79,16 @@ services:
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres 
+  
+  s_consul:
+    container_name: c_consul
+    ports:
+      - 8500:8500
+      - 8600:8600/tcp
+      - 8600:8600/udp
+    networks:
+      - backend_service
+      - api_gateway_service
   
 networks:
   backend_service:

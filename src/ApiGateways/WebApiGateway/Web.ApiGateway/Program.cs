@@ -1,5 +1,6 @@
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Provider.Consul;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,7 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
 builder.Configuration.AddJsonFile("Configurations/ocelot.json", optional: false, reloadOnChange: true);
-builder.Services.AddOcelot();
+builder.Services.AddOcelot().AddConsul();
 /*
 builder.Services.AddHttpClient("person", c =>
 {

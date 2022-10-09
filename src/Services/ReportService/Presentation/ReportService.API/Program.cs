@@ -15,7 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddPersistenceServices();
 builder.Services.AddApplicationServices();
-
+builder.Configuration.AddEnvironmentVariables();
+builder.Services.ConfigureConsul(builder.Configuration);
 // Add services to the container.
 
 builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>())
@@ -48,7 +49,7 @@ if (app.Environment.IsDevelopment())
 
 app.MapControllers();
 
-//app.RegisterWithConsul(app.Lifetime,app.Configuration);
+app.RegisterWithConsul(app.Lifetime,app.Configuration);
 
 var eventBus = app.Services.GetRequiredService<IEventBus>();
 
