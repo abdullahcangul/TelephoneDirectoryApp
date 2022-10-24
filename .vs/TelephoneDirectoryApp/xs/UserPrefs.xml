@@ -1,0 +1,62 @@
+﻿<Properties StartupConfiguration="{3B06884F-0D4B-4DC6-817A-C2FFF6BD7A96}|Default">
+  <MonoDevelop.Ide.ItemProperties.docker-compose PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="src/Services/ReportService/Core/ReportService.Application/ServiceRegistration.cs">
+    <Files>
+      <File FileName="src/ApiGateways/WebApiGateway/Web.ApiGateway/appsettings.json" Line="1" Column="1" />
+      <File FileName="src/Services/PersonService/Core/PersonService.Domain/PersonService.Domain.csproj" Line="1" Column="1" />
+      <File FileName="src/Services/ReportService/Core/ReportService.Domain/ReportService.Domain.csproj" Line="1" Column="1" />
+      <File FileName="src/ApiGateways/WebApiGateway/Web.ApiGateway/Web.ApiGateway.csproj" Line="1" Column="1" />
+      <File FileName="src/Services/PersonService/Presentation/PersonService.API/Dockerfile" Line="1" Column="1" />
+      <File FileName="src/Services/ReportService/Presentation/ReportService.API/Dockerfile" Line="1" Column="1" />
+      <File FileName="src/ApiGateways/WebApiGateway/Web.ApiGateway/Dockerfile" Line="1" Column="1" />
+      <File FileName="docker-compose.yml" Line="18" Column="34" />
+      <File FileName="docker-compose.override.yml" Line="4" Column="21" />
+      <File FileName="src/Services/ReportService/Presentation/ReportService.API/Extenstions/ConsulRegistration.cs" Line="1" Column="1" />
+      <File FileName="src/Services/ReportService/Presentation/ReportService.API/Program.cs" Line="1" Column="1" />
+      <File FileName="src/Services/PersonService/Presentation/PersonService.API/Program.cs" Line="1" Column="1" />
+      <File FileName="src/Services/ReportService/Core/ReportService.Application/ServiceRegistration.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="TelephoneDirectoryApp" expanded="True">
+            <Node name="src" expanded="True">
+              <Node name="ApiGateways" expanded="True">
+                <Node name="WebApiGateway" expanded="True">
+                  <Node name="Web.ApiGateway" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="Services" expanded="True">
+                <Node name="PersonService" expanded="True">
+                  <Node name="Presentation" expanded="True">
+                    <Node name="PersonService.API" expanded="True" />
+                  </Node>
+                </Node>
+                <Node name="ReportService" expanded="True">
+                  <Node name="Core" expanded="True">
+                    <Node name="ReportService.Application" expanded="True">
+                      <Node name="ServiceRegistration.cs" selected="True" />
+                    </Node>
+                  </Node>
+                </Node>
+              </Node>
+            </Node>
+            <Node name="docker-compose" expanded="True">
+              <Node name="docker-compose.yml" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.src.Services.PersonService.Presentation.PersonService.API PreferredExecutionTarget="/Applications/Brave Browser.app" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

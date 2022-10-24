@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  personservice.api:
+    image: ${DOCKER_REGISTRY-}personservice
+    build:
+      context: .
+      dockerfile: src/Services/PersonService/Presentation/PersonService.API/Dockerfile
+
+  reportservice.api:
+    image: ${DOCKER_REGISTRY-}reportservice
+    build:
+      context: .
+      dockerfile: src/Services/ReportService/Presentation/ReportService.API/Dockerfile
+
+
+  web.apigateway:
+    image: ${DOCKER_REGISTRY-}web
+    build:
+      context: .
+      dockerfile: src/ApiGateways/WebApiGateway/Web.ApiGateway/Dockerfile
+  
+
+  s_rabbitmq:
+    image: rabbitmq:3-management
+    
+  s_postgresql:
+    image: postgres
+      
+  s_consul:
+    image: consul

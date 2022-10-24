@@ -1,0 +1,102 @@
+﻿{
+  "Routes": [
+    {
+
+      "DownstreamPathTemplate": "/api/Reports/GetReports",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "report_service",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/report/reports/GetReports",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/Reports/GetReportsWithReportDetail",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "report_service",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/report/reports/GetReportsWithReportDetail",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+
+      "DownstreamPathTemplate": "/api/Reports/CreateReport",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "report_service",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/report/reports/CreateReport",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Persons/CreatePerson",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "report_service",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/person/persons/CreatePerson",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Persons/DeletePerson",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "report_service",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/person/persons/DeletePerson",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Contacts/CreateContact",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "report_service",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/contact/contacts/CreateContact",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Contacts/DeleteContact",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "report_service",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/contact/contacts/DeleteContact",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://api_gateway:5001"
+  }
+
+}

@@ -5,7 +5,7 @@ namespace EventBus.Base
     public class EventBusConfig
     {
         public int ConnectionRetryCount { get; set; } = 5;
-        public string DefaultTopicName { get; set; } = "SellingBuddyEventBus";
+        public string DefaultTopicName { get; set; } = "TelephoneDirectoryAppEventBus";
         public string EventBusConnectionString { get; set; } = String.Empty;
         public string SubscriberClientAppName { get; set; } = String.Empty;
         public string EventNamePrefix { get; set; } = String.Empty;

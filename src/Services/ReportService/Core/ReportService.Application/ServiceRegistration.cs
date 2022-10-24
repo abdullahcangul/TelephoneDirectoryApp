@@ -1,8 +1,10 @@
+using System.Reflection;
 using EventBus.Base;
 using EventBus.Base.Abstraction;
 using EventBus.Factory;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using PersonService.Application.Features.Commands.ReportCommand.CreateReport;
 using PersonService.Application.IntegrationEvents.EventHandlers;
 using RabbitMQ.Client;
 
@@ -12,7 +14,8 @@ public static class ServiceRegistration
 {
     public static void AddApplicationServices(this IServiceCollection collection)
     {
-        collection.AddMediatR(typeof(ServiceRegistration));
+        
+        collection.AddMediatR(Assembly.GetExecutingAssembly());
         collection.AddAutoMapper(typeof(ServiceRegistration));
         collection.AddHttpClient();
         
@@ -23,7 +26,11 @@ public static class ServiceRegistration
                 ConnectionRetryCount = 5,
                 EventNameSuffix = "IntegrationEvent",
                 SubscriberClientAppName = "ReportService",
-                EventBusType = EventBusType.RabbitMQ
+                EventBusType = EventBusType.RabbitMQ,
+                Connection = new ConnectionFactory()
+                {
+                    HostName = "c_rabbitmq"
+                }
             };
 
             return EventBusFactory.Create(config, p);

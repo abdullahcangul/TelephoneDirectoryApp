@@ -1,0 +1,99 @@
+version: '3.4'
+
+services:
+  personservice.api:
+    container_name: person_service
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConsulConfig__Address=http://s_consul:8500
+      - ConsulConfig__ServiceAddress=http://person_service:5006
+      - ConsulConfig__ServiceName=PersonService
+      - ConsulConfig__ServiceId=Person
+    ports:
+      - "5006:80"
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+    networks:
+      - backend_service
+    depends_on:
+      - s_rabbitmq
+      - s_postgresql
+      - web.apigateway
+  reportservice.api:
+    container_name: report_service
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConsulConfig__Address=http://s_consul:8500
+      - ConsulConfig__ServiceAddress=http://report_service:5005
+      - ConsulConfig__ServiceName=ReportService
+      - ConsulConfig__ServiceId=Report
+    ports:
+      - "5005:80"
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+    networks:
+      - backend_service
+    depends_on:
+      - s_rabbitmq
+      - s_postgresql
+      - web.apigateway
+    
+  web.apigateway:
+    container_name: api_gateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "5001:80"
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+    networks:
+      - backend_service
+      - api_gateway_service
+    depends_on:
+      - s_rabbitmq
+      - s_postgresql
+      
+  s_rabbitmq:
+    container_name: c_rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - backend_service
+      - api_gateway_service
+
+  s_postgresql:
+    container_name: c_postgresql
+    ports:
+      - 5433:5433
+    networks:
+      - backend_service
+      - api_gateway_service
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres 
+  
+  s_consul:
+    container_name: c_consul
+    ports:
+      - 8500:8500
+      - 8600:8600/tcp
+      - 8600:8600/udp
+    networks:
+      - backend_service
+      - api_gateway_service
+  
+networks:
+  backend_service:
+    driver: bridge,
+    external: true
+  api_gateway_service:
+    driver: bridge,
+    external: true

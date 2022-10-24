@@ -1,5 +1,4 @@
 using MediatR;
-using PersonService.Application.DTOs.PersonDto;
 using PersonService.Application.Utility.Results;
 using PersonService.Domain.Entities;
 
