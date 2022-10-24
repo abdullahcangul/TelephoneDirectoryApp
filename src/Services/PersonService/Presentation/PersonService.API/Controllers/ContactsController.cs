@@ -23,7 +23,7 @@ public class ContactsController:ControllerBase
     [HttpPost("CreateContact")]
     [ProducesResponseType(typeof(ContactDto),StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddPerson([FromBody]CreateContactCommandRequest commandRequest)
+    public async Task<IActionResult> CreateContact([FromBody]CreateContactCommandRequest commandRequest)
     {
         var result=await _mediator.Send(commandRequest);
         return result.Succes ? Ok(_mapper.Map<ContactDto>(result.Data)) : BadRequest(result.Message??String.Empty);
@@ -32,7 +32,7 @@ public class ContactsController:ControllerBase
     [HttpDelete("DeleteContact")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeletePerson([FromBody]DeleteContactCommandRequest commandRequest)
+    public async Task<IActionResult> DeleteContact([FromBody]DeleteContactCommandRequest commandRequest)
     {
         var result=await _mediator.Send(commandRequest);
         return result.Succes ? Ok() : BadRequest(result.Message??String.Empty);
